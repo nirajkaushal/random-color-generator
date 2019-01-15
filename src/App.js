@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import logo from './logo.svg';
 import './App.css';
 
 const colorHexChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
@@ -21,7 +20,7 @@ class App extends Component {
   handleKeyDown = (event) => {
     const inputKey = event.key;
     console.log(inputKey);
-    if(!colorHexChars.includes(inputKey.toUpperCase()) && event.keyCode !='8') {
+    if(!colorHexChars.includes(inputKey.toUpperCase()) && event.keyCode !=='8') {
       event.preventDefault();
     }
   }
@@ -38,7 +37,7 @@ class App extends Component {
 
     this.setState({userInput: inputText});
 
-    if(inputText.length == 6) {
+    if(inputText.length === 6) {
       this.setState({currentColor: '#'+inputText});
     }
   }
@@ -48,7 +47,6 @@ class App extends Component {
       <div className="color-fun" style={{background: this.state.currentColor}}>
         <input
           className="inputMask"
-          placeholder="#"
           placeholder={this.state.userInputMask}
           id="colorCopy"
           readOnly
