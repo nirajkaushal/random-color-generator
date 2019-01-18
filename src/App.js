@@ -60,7 +60,9 @@ class App extends Component {
 
     const { currentColorMask, colorArray } = this.state
 
-    document.getElementsByTagName('meta')["theme-color"].content = currentColorMask
+    const themeColor = `#${(parseInt(currentColorMask.substring(1), 16) + 10).toString(16)}`
+
+    document.getElementsByTagName('meta')["theme-color"].content = themeColor
 
     return (
       <div
