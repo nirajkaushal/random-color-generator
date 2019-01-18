@@ -4,6 +4,14 @@ import './App.css';
 
 const colorHexChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
 
+const generateRandomColor = () => {
+  let randomColor = '';
+  for (let i = 0; i < 6; i++) {
+    randomColor += colorHexChars[Math.floor(Math.random()*colorHexChars.length)];
+  }
+  return randomColor
+}
+
 class App extends Component {
   state = {
     currentColorMask: '#54ED42',
@@ -12,11 +20,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let randomColor = '';
-    for (let i = 0; i < 6; i++) {
-      randomColor += colorHexChars[Math.floor(Math.random()*colorHexChars.length)];
-    }
-    this.setState({currentColorMask: `#${randomColor}`})
+    this.setState({currentColorMask: `#${generateRandomColor()}`})
     document.addEventListener("keydown", this.handleKeyDown);
   }
 
@@ -48,14 +52,19 @@ class App extends Component {
 
   }
 
+  handleBodyClick = () => {
+    this.setState({currentColorMask: `#${generateRandomColor()}`})
+  }
+
   render() {
 
     const { currentColorMask, colorArray } = this.state
 
     return (
       <div
-        className="app"
+        className="app noselect"
         style={{background: this.state.currentColorMask}}
+        onClick={() => this.handleBodyClick()}
         >
         <div className="color-name-wrapper">
         {currentColorMask.split('').map((char, index) => {

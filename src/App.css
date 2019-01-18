@@ -12,8 +12,17 @@
   align-items: center;
   width: 80%;
   justify-content: center;
-  font-size: 10em;
+  font-size: 18vw;
   font-weight: bold;
   color: white;
   height: 100vh;
+  text-shadow: 5px 7px 11px #00000040;
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }
