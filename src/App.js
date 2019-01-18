@@ -60,6 +60,8 @@ class App extends Component {
 
     const { currentColorMask, colorArray } = this.state
 
+    document.getElementsByTagName('meta')["theme-color"].content = currentColorMask
+
     return (
       <div
         className="app noselect"
@@ -71,6 +73,7 @@ class App extends Component {
           return <div key={index}>{char}</div>
         })}
         </div>
+        <div class="credit">&lt;&gt; by <a href="https://github.com/nirajkaushal" target="_blank">nirajkaushal</a> with <span>&hearts;</span></div>
       </div>
     );
   }
