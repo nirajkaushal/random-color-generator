@@ -1,70 +1,76 @@
 import React, { Component } from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import logo from './logo.svg';
 import './App.css';
 
 const colorHexChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
 
+const generateRandomColor = () => {
+  let randomColor = '';
+  for (let i = 0; i < 6; i++) {
+    randomColor += colorHexChars[Math.floor(Math.random()*colorHexChars.length)];
+  }
+  return randomColor
+}
+
 class App extends Component {
   state = {
-    currentColor: '#5473e2',
-    userInput: '',
-    userInputMask: '#',
+    currentColorMask: '#54ED42',
+    colorArray: [],
     copied: false
   }
 
-  handleCopiedText = (text, result) => {
-    this.setState({copied: true})
-    alert(text);
+  componentDidMount() {
+    this.setState({currentColorMask: `#${generateRandomColor()}`})
+    document.addEventListener("keydown", this.handleKeyDown);
   }
 
   handleKeyDown = (event) => {
     const inputKey = event.key;
-    console.log(inputKey);
-    if(!colorHexChars.includes(inputKey.toUpperCase()) && event.keyCode !='8') {
-      event.preventDefault();
-    }
-  }
+    const isValidHexChar = colorHexChars.includes(inputKey.toUpperCase())
+    const { colorArray } = this.state
+    let paddText = ''
 
-  handleChange = (event) => {
-    let inputText = event.target.value;
-    if(inputText.length <= 6) {
-      let paddText = '';
-      for (let i = 0; i < 6-inputText.length; i++) {
+    if (isValidHexChar || inputKey.toUpperCase() === 'BACKSPACE') {
+
+      let newColorArray = []
+
+      if (isValidHexChar) {
+        newColorArray = (colorArray.length < 6) ? [...this.state.colorArray, inputKey.toUpperCase()] : colorArray
+      }
+
+      if (inputKey.toUpperCase() === 'BACKSPACE' && colorArray.length > 0) {
+        newColorArray = [...this.state.colorArray]
+        newColorArray.pop()
+      }
+
+      for (let i = 0; i < 6-newColorArray.length; i++) {
         paddText += colorHexChars[Math.floor(Math.random()*colorHexChars.length)];
       }
-      this.setState({userInputMask: '#'+inputText+paddText, currentColor: '#'+inputText+paddText});
+
+      this.setState({colorArray: newColorArray, currentColorMask: `#${newColorArray.join('')+paddText}`})
     }
 
-    this.setState({userInput: inputText});
+  }
 
-    if(inputText.length == 6) {
-      this.setState({currentColor: '#'+inputText});
-    }
+  handleBodyClick = () => {
+    this.setState({currentColorMask: `#${generateRandomColor()}`})
   }
 
   render() {
-    return (
-      <div className="color-fun" style={{background: this.state.currentColor}}>
-        <input
-          className="inputMask"
-          placeholder="#"
-          placeholder={this.state.userInputMask}
-          id="colorCopy"
-          readOnly
-        />
-        <input
-          className="input"
-          maxLength="6"
-          value={this.state.userInput}
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
-        />
-        <CopyToClipboard text={this.state.userInputMask}
-          onCopy={this.handleCopiedText}>
-          <button>Copy Code</button>
-        </CopyToClipboard>
 
+    const { currentColorMask, colorArray } = this.state
+
+    return (
+      <div
+        className="app noselect"
+        style={{background: this.state.currentColorMask}}
+        onClick={() => this.handleBodyClick()}
+        >
+        <div className="color-name-wrapper">
+        {currentColorMask.split('').map((char, index) => {
+          return <div key={index}>{char}</div>
+        })}
+        </div>
       </div>
     );
   }
