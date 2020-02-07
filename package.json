@@ -2,8 +2,10 @@
   "name": "react-color",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://nirajkaushal.github.io/",
   "dependencies": {
     "copy-to-clipboard": "^3.0.8",
+    "gh-pages": "^2.2.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-copy-to-clipboard": "^5.0.1",
@@ -15,7 +17,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "deploy-aws": "react-scripts build && aws s3 sync build/ s3://www.colorgenerator.cf --profile color-generator --acl public-read",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
