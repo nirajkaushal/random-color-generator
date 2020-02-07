@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
-import './App.css';
+import React, { Component } from 'react'
+import {CopyToClipboard} from 'react-copy-to-clipboard'
+import './App.css'
 
-const colorHexChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
+const colorHexChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
 
 const generateRandomColor = () => {
-  let randomColor = '';
+  let randomColor = ''
   for (let i = 0; i < 6; i++) {
-    randomColor += colorHexChars[Math.floor(Math.random()*colorHexChars.length)];
+    randomColor += colorHexChars[Math.floor(Math.random()*colorHexChars.length)]
   }
   return randomColor
 }
@@ -21,11 +21,11 @@ class App extends Component {
 
   componentDidMount() {
     this.setState({currentColorMask: `#${generateRandomColor()}`})
-    document.addEventListener("keydown", this.handleKeyDown);
+    document.addEventListener("keydown", this.handleKeyDown)
   }
 
   handleKeyDown = (event) => {
-    const inputKey = event.key;
+    const inputKey = event.key
     const isValidHexChar = colorHexChars.includes(inputKey.toUpperCase())
     const { colorArray } = this.state
     let paddText = ''
@@ -44,7 +44,7 @@ class App extends Component {
       }
 
       for (let i = 0; i < 6-newColorArray.length; i++) {
-        paddText += colorHexChars[Math.floor(Math.random()*colorHexChars.length)];
+        paddText += colorHexChars[Math.floor(Math.random()*colorHexChars.length)]
       }
 
       this.setState({colorArray: newColorArray, currentColorMask: `#${newColorArray.join('')+paddText}`})
@@ -60,6 +60,10 @@ class App extends Component {
 
     const { currentColorMask, colorArray } = this.state
 
+    const themeColor = `#${(parseInt(currentColorMask.substring(1), 16) + 10).toString(16)}`
+
+    document.getElementsByTagName('meta')["theme-color"].content = themeColor
+
     return (
       <div
         className="app noselect"
@@ -71,9 +75,10 @@ class App extends Component {
           return <div key={index}>{char}</div>
         })}
         </div>
+        <div class="credit">&lt;&gt; by <a href="https://github.com/nirajkaushal" target="_blank">nirajkaushal</a> with <span>&hearts;</span></div>
       </div>
     );
   }
 }
 
-export default App;
+export default App

@@ -14,9 +14,8 @@
   justify-content: center;
   font-size: 18vw;
   font-weight: bold;
-  color: white;
+  color: #00000038;
   height: 100vh;
-  text-shadow: 5px 7px 11px #00000040;
 }
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -25,4 +24,15 @@
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+.credit {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  color: #0000006b;
+  word-spacing: 4px;
+  font-size: 15px;
+}
+.credit > a {
+  color: #000000a8;
 }
